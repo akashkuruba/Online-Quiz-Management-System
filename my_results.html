@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}
+<h1>My Results</h1><div class="card"><table><tr><th>Quiz</th><th>Score</th><th>Result</th><th>Date</th></tr>
+{% for a in attempts %}<tr><td>{{ a.quiz.title }}</td><td>{{ a.score }}/{{ a.total }} ({{ a.percent }}%)</td>
+<td class="{% if a.passed %}pass{% else %}fail{% endif %}">{% if a.passed %}Passed{% else %}Failed{% endif %}</td><td>{{ a.taken_at|date:"d M Y H:i" }}</td></tr>
+{% empty %}<tr><td colspan="4">No attempts yet.</td></tr>{% endfor %}</table></div>{% endblock %}

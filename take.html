@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}{{ quiz.title }}{% endblock %}{% block content %}
+<div id="timer">Time left: <span id="t"></span></div>
+<h1>{{ quiz.title }}</h1>
+<form method="post" id="qf">{% csrf_token %}
+{% for q in questions %}<div class="card"><b>{{ forloop.counter }}. {{ q.text }}</b>
+{% for c in q.choices.all %}<label class="opt"><input type="radio" name="q{{ q.id }}" value="{{ c.id }}"> {{ c.text }}</label>{% endfor %}</div>
+{% empty %}<div class="card">This quiz has no questions yet.</div>{% endfor %}
+<button class="btn" type="submit">Submit Quiz</button></form>
+<script>
+let s={{ quiz.time_limit_minutes }}*60;const t=document.getElementById("t");
+function tick(){const m=Math.floor(s/60),x=s%60;t.textContent=m+":"+String(x).padStart(2,"0");
+if(s--<=0){document.getElementById("qf").submit();return}setTimeout(tick,1000)}tick();
+</script>{% endblock %}

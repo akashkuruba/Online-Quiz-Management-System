@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}QuizHub{% endblock %}</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f3f4f8;color:#1f2330}
+nav{background:#3b3fd8;color:#fff;padding:14px 24px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none}nav .brand{font-weight:700;font-size:1.2rem;margin-right:auto}
+nav form{display:inline}nav button{background:none;border:0;color:#fff;cursor:pointer;font:inherit}
+main{max-width:820px;margin:28px auto;padding:0 16px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px #0001}
+.btn{display:inline-block;background:#3b3fd8;color:#fff;border:0;padding:10px 18px;border-radius:8px;text-decoration:none;cursor:pointer;font-size:1rem}
+.btn.alt{background:#e4e5f7;color:#3b3fd8}
+label.opt{display:block;padding:10px;border:1px solid #ddd;border-radius:8px;margin:6px 0;cursor:pointer}
+label.opt:hover{background:#f0f0ff}
+input[type=text],input[type=password]{width:100%;padding:10px;margin:4px 0 12px;border:1px solid #ccc;border-radius:8px}
+table{width:100%;border-collapse:collapse}td,th{padding:10px;border-bottom:1px solid #eee;text-align:left}
+.pass{color:#1a8a3c}.fail{color:#c62828}.muted{color:#666;font-size:.9rem}
+.msg{background:#fff3cd;padding:10px;border-radius:8px;margin-bottom:12px}
+#timer{position:sticky;top:0;background:#fff;padding:10px;text-align:right;font-weight:700;border-radius:8px}
+</style></head><body>
+<nav><a class="brand" href="{% url 'home' %}">🎓 QuizHub</a>
+<a href="{% url 'home' %}">Quizzes</a>
+{% if user.is_authenticated %}
+<a href="{% url 'my_results' %}">My Results</a>
+{% if user.is_staff %}<a href="/admin/">Manage</a>{% endif %}
+<form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Logout ({{ user.username }})</button></form>
+{% else %}<a href="{% url 'login' %}">Login</a><a href="{% url 'register' %}">Register</a>{% endif %}
+</nav><main>{% block content %}{% endblock %}</main></body></html>

@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block content %}
+<div class="card"><h1>{{ attempt.quiz.title }}</h1>
+<h2>Score: {{ attempt.score }} / {{ attempt.total }} ({{ attempt.percent }}%)</h2>
+<h2 class="{% if attempt.passed %}pass{% else %}fail{% endif %}">{% if attempt.passed %}🎉 Passed{% else %}Not passed{% endif %}</h2>
+<a class="btn" href="{% url 'take' attempt.quiz.pk %}">Retake</a> <a class="btn alt" href="{% url 'home' %}">All Quizzes</a></div>
+{% endblock %}
